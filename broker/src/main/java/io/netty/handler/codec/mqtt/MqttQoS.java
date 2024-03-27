@@ -20,7 +20,7 @@ package io.netty.handler.codec.mqtt;
  */
 public enum MqttQoS {
     /**
-     * 最多一次传递。这意味着消息可能会在传输过程中丢失，但绝不会被重复传递。
+     * 最多一次传递。意味着消息可能会在传输过程中丢失，但绝不会被重复传递。
      */
     AT_MOST_ONCE(0),
     /**

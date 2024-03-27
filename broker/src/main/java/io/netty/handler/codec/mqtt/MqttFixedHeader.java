@@ -24,11 +24,25 @@ import io.netty.util.internal.StringUtil;
  *     MQTTV3.1/fixed-header</a>
  */
 public final class MqttFixedHeader {
-
+    /**
+     * 消息类型
+     */
     private final MqttMessageType messageType;
+    /**
+     * DUP 标志，表示消息是否是重复消息。在 MQTT 协议中，DUP 标志用于 QoS 1 和 QoS 2 消息，以指示消息是否是先前消息的重复。
+     */
     private final boolean isDup;
+    /**
+     *质量等级
+     */
     private final MqttQoS qosLevel;
+    /**
+     * 是否保留消息
+     */
     private final boolean isRetain;
+    /**
+     * 剩余长度，表示 MQTT 消息的总长度
+     */
     private final int remainingLength;
 
     public MqttFixedHeader(
