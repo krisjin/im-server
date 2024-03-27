@@ -24,9 +24,19 @@ import io.netty.util.internal.StringUtil;
  */
 public class MqttMessage {
 
+    /**
+     * 固定header
+     */
     private final MqttFixedHeader mqttFixedHeader;
+    /**
+     * 可变header
+     */
     private final Object variableHeader;
+    /**
+     * 消息主体
+     */
     private final Object payload;
+
     private final DecoderResult decoderResult;
 
     // Constants for fixed-header only message types with all flags set to 0 (see

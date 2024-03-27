@@ -15,11 +15,22 @@
 
 package io.netty.handler.codec.mqtt;
 
+/**
+ * Mqtt 质量等级定义
+ */
 public enum MqttQoS {
+    /**
+     * 最多一次传递。这意味着消息可能会在传输过程中丢失，但绝不会被重复传递。
+     */
     AT_MOST_ONCE(0),
+    /**
+     * 至少一次传递。确保消息至少会被传递一次，但可能会发生重复传递。
+     */
     AT_LEAST_ONCE(1),
-    EXACTLY_ONCE(2),
-    FAILURE(0x80);
+    /**
+     * 恰好一次传递。最高的 QoS 等级，确保消息在传输过程中既不会丢失也不会重复。
+     */
+    EXACTLY_ONCE(2), FAILURE(0x80);
 
     private final int value;
 
@@ -33,16 +44,16 @@ public enum MqttQoS {
 
     public static MqttQoS valueOf(int value) {
         switch (value) {
-        case 0:
-            return AT_MOST_ONCE;
-        case 1:
-            return AT_LEAST_ONCE;
-        case 2:
-            return EXACTLY_ONCE;
-        case 0x80:
-            return FAILURE;
-        default:
-            throw new IllegalArgumentException("invalid QoS: " + value);
+            case 0:
+                return AT_MOST_ONCE;
+            case 1:
+                return AT_LEAST_ONCE;
+            case 2:
+                return EXACTLY_ONCE;
+            case 0x80:
+                return FAILURE;
+            default:
+                throw new IllegalArgumentException("invalid QoS: " + value);
         }
     }
 }
