@@ -20,14 +20,14 @@ package io.netty.handler.codec.mqtt;
  * MQTT Message Types.
  */
 public enum MqttMessageType {
-    CONNECT(1),
+    CONNECT(1),//连接
     CONNACK(2),
-    PUBLISH(3),
+    PUBLISH(3),//发布
     PUBACK(4),
     PUBREC(5),
     PUBREL(6),
     PUBCOMP(7),
-    SUBSCRIBE(8),
+    SUBSCRIBE(8),//订阅
     SUBACK(9),
     UNSUBSCRIBE(10),
     UNSUBACK(11),

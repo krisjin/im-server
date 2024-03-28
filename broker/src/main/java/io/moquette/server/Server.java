@@ -116,7 +116,7 @@ public class Server {
         System.setProperty("hazelcast.logging.type", "none" );
         instance.mConfig = config;
         ResourceLeakDetector.setLevel(ResourceLeakDetector.Level.ADVANCED);
-
+        //启动server
         instance.startServer(config);
 
         int httpLocalPort = Integer.parseInt(config.getProperty(BrokerConstants.HTTP_LOCAL_PORT));
@@ -127,6 +127,7 @@ public class Server {
 
         final LoServer httpServer = new LoServer(httpLocalPort, httpAdminPort, instance.m_processor.getMessagesStore(), instance.m_store.sessionsStore());
         try {
+            //http server 启动
             httpServer.start();
         } catch (InterruptedException e) {
             e.printStackTrace();
