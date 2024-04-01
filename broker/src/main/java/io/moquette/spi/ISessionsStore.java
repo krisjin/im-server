@@ -26,6 +26,8 @@ import java.util.Queue;
 
 /**
  * Store used to handle the persistence of the subscriptions tree.
+ *
+ *
  */
 public interface ISessionsStore {
 

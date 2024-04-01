@@ -2299,14 +2299,24 @@ public class MemoryMessagesStore implements IMessagesStore {
         return false;
     }
 
+    /**
+     * 是否可以发送消息判断, 1.群组是否静音 2.群成员是否禁言 3.发送是否在群组中
+     * @param memberId 成员id
+     * @param groupId 群组id
+     * @return
+     */
     @Override
     public ErrorCode canSendMessageInGroup(String memberId, String groupId) {
         HazelcastInstance hzInstance = m_Server.getHazelcastInstance();
+        //从缓存中获取群成员数据
         MultiMap<String, WFCMessage.GroupMember> groupMembers = hzInstance.getMultiMap(GROUP_MEMBERS);
+        //从缓存获取群组数据
         IMap<String, WFCMessage.GroupInfo> groups = hzInstance.getMap(GROUPS_MAP);
         WFCMessage.GroupInfo groupInfo = groups.get(groupId);
+        //是否静音
         boolean isMute = false;
         if (groupInfo != null) {
+            //判断是否群主, 是群主的话，校验通过
             if (groupInfo.getOwner().equals(memberId)) {
                 return ErrorCode.ERROR_CODE_SUCCESS;
             }
@@ -2321,10 +2331,11 @@ public class MemoryMessagesStore implements IMessagesStore {
         boolean isInGroup = false;
         for (WFCMessage.GroupMember member : members) {
             if (member.getMemberId().equals(memberId)) {
+                //判断用户类型是否禁言
                 if (member.getType() == GroupMemberType_Silent) {
                     return ErrorCode.ERROR_CODE_NOT_RIGHT;
                 }
-
+                //群是否静音
                 if (isMute && member.getType() != GroupMemberType_Manager && member.getType() != GroupMemberType_Owner) {
                     return ErrorCode.ERROR_CODE_GROUP_MUTED;
                 }
